@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Build the WAR file
+ * 
+ * copyright Paul Shipley, Australia, 2011
+ * 
+ * @author Paul Shipley (pshipley@melbpc.org.au)
+ * @version $Id: build_war.xml 31 2012-02-17 11:21:48Z paul $
+ */
+ -->
+<project name="build_war" default="build_war" basedir=".">
+    <!-- build war using build.xml which was created by eclipse2ant -->
+    <import file="build.xml" />
+
+	<property name="src" location="src" />
+	<property name="wardir" location="." />
+	<property name="warfile" location="${wardir}/DynamicPDFServlet.war" />
+
+    <!-- common part for all projects, no editing beyond this line required -->
+    <target name="build_war" description="build war" depends="clean,build,war" />
+
+    <target name="clean">
+        <ant antfile="build.xml" target="clean" inheritall="false" />
+		<delete file="${warfile}" />
+    </target>
+
+	<target name="war">
+		<war destfile="${warfile}" webxml="WebContent/WEB-INF/web.xml" update="true">
+			<classes dir="build/classes" />
+			<classes dir="${src}" casesensitive="false">
+				<include name="**/*.java" />
+			</classes>
+			<fileset dir="WebContent">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+		</war>
+	</target>
+</project>

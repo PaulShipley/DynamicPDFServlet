@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>DynamicPDFServlet</display-name>
+
+	<!-- see iText in Action, Second Edition, Creating a PDF from a servlet, page 284 -->
+	<servlet>
+		<description></description>
+		<display-name>PdfServlet</display-name>
+		<servlet-name>PdfServlet</servlet-name>
+		<servlet-class>id.paulshipley.com.au.DynamicPDF.PdfServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<!-- see http://javapapers.com/servlet/what-is-servlet-mapping/
+		         http://www.coderanch.com/t/529377/Servlets/java/web-xml-url-pattern-wildcards
+                 http://www.caucho.com/resin-3.0/servlet/servlet.xtp
+				 -->
+		<servlet-name>PdfServlet</servlet-name>
+		<url-pattern>/pdf/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Struts 2 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
